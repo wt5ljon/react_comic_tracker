@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import uuid from 'uuid';
+import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import ComicTrackingApp from './Components/ComicTrackingApp';
 import getVisibleComics from './selectors/getVisibleComics';
@@ -15,13 +15,18 @@ store.subscribe(() => {
   console.log('Visible', visibleComics);
 });
 
-store.dispatch(addComic({ seriesName: 'Amazing Spiderman', seriesNumber: 10, publicationDate: 1000 }));
+store.dispatch(addComic({ seriesName: 'Amazing Spider-man', seriesNumber: 10, publicationDate: 21000 }));
 store.dispatch(addComic({ seriesName: 'The Avengers', seriesNumber: 18, publicationDate: -1000 }));
+store.dispatch(setTextFilter('spider'));
+
+setTimeout(() => {
+  store.dispatch(setTextFilter('ng'));
+}, 3000);
 
 // store.dispatch(setTextFilter('aveng'));
-store.dispatch(setStartDate(0));
-store.dispatch(setEndDate(1250));
-store.dispatch(setTextFilter('Aveng'));
+// store.dispatch(setStartDate(0));
+// store.dispatch(setEndDate(1250));
+// store.dispatch(setTextFilter('Aveng'));
 
 
 // const comic1 = {
@@ -50,4 +55,10 @@ store.dispatch(setTextFilter('Aveng'));
 
 // store.dispatch(setTextFilter('spiderman'));
 
-ReactDOM.render(<ComicTrackingApp />, document.getElementById('app'));
+const jsx = (
+  <Provider store={store}>
+    <ComicTrackingApp />
+  </Provider>
+);
+
+ReactDOM.render(jsx, document.getElementById('app'));

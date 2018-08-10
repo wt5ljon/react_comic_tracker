@@ -5,5 +5,9 @@ export default (comics, { text, sortBy, startDate, endDate }) => {
     const endDateMatch = typeof endDate !== 'number' || comic.publicationDate <= endDate;
     
     return textMatch && startDateMatch && endDateMatch;
+  }).sort((a, b) => {
+    if (sortBy === 'date') {
+      return b.publicationDate < a.publicationDate ? 1 : -1;
+    }
   });
 };
