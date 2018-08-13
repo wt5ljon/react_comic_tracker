@@ -6,7 +6,6 @@ import ComicsListFilters from './ComicsListFilters';
 const ComicTrackingApp = () => {
   return (
     <div>
-      <Header title="Comicbook Tracking App" />
       <ComicsListFilters />
       <ComicList />
     </div>

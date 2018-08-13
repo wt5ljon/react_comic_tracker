@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import 'react-dates/initialize';
+import 'normalize.css/normalize.css';
+import './styles/styles.scss';
 import configureStore from './store/configureStore';
-import ComicTrackingApp from './Components/ComicTrackingApp';
+import AppRouter from './routers/AppRouter';
 import getVisibleComics from './selectors/getVisibleComics';
 import { addComic, removeComic, editComic, toggleReadStatus } from './actions/comics';
 import { setTextFilter, setStartDate, setEndDate } from './actions/filters';
@@ -57,7 +60,7 @@ setTimeout(() => {
 
 const jsx = (
   <Provider store={store}>
-    <ComicTrackingApp />
+    <AppRouter />
   </Provider>
 );
 
