@@ -6,12 +6,13 @@ import 'react-dates/lib/css/_datepicker.css';
 
 export default class ComicForm extends React.Component {
   state = {
-    seriesName: '',
-    seriesNumber: '',
-    storyBy: '',
-    artBy: '',
-    publicationDate: moment(),
-    calendarFocused: false
+    seriesName: this.props.comic ? this.props.comic.seriesName : '',
+    seriesNumber: this.props.comic ? this.props.comic.seriesNumber : '',
+    storyBy: this.props.comic ? this.props.comic.storyBy : '',
+    artBy: this.props.comic ? this.props.comic.artBy : '',
+    publicationDate: this.props.comic ? moment(this.props.comic.publicationDate) : moment(),
+    calendarFocused: false,
+    errorMessage: ''
   };
 
   onSeriesNameChange = (e) => {
@@ -38,17 +39,37 @@ export default class ComicForm extends React.Component {
   };
 
   onDateChange = (publicationDate) => {
-    this.setState(() => ({ publicationDate }));
+    if (publicationDate) {
+      this.setState(() => ({ publicationDate }));
+    }
   };
 
   onFocusChange = ({ focused }) => {
     this.setState(() => ({ calendarFocused: focused }));
   };
 
+  onSubmit = (e) => {
+    e.preventDefault();
+
+    if (!this.state.seriesName || !this.state.seriesNumber) {
+      this.setState(() => ({ errorMessage: 'Please provide a series name and number' }));
+    } else {
+      this.setState(() => ({ errorMessage: '' }));
+      this.props.onSubmit({
+        seriesName: this.state.seriesName,
+        seriesNumber: this.state.seriesNumber,
+        publicationDate: this.state.publicationDate.valueOf(),
+        storyBy: this.state.storyBy,
+        artBy: this.state.artBy
+      })
+    }
+  };
+
   render() {
     return (
       <div>
-        <form>
+        <form onSubmit={this.onSubmit}>
+          {this.state.errorMessage && <p>{this.state.errorMessage}</p>}
           <p><input 
             type="text" 
             placeholder="Series Name" 
@@ -74,6 +95,7 @@ export default class ComicForm extends React.Component {
             value={this.state.artBy}
             onChange={this.onArtByChange}
           /></p>
+          <button>Add Comicbook</button>
           <SingleDatePicker 
             date={this.state.publicationDate}
             onDateChange={this.onDateChange}
@@ -82,7 +104,6 @@ export default class ComicForm extends React.Component {
             numberOfMonths={1}
             isOutsideRange={() => false}
           />
-          <button>Add Comicbook</button>
         </form>
       </div>  
     )

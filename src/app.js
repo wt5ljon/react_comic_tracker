@@ -20,11 +20,11 @@ store.subscribe(() => {
 
 store.dispatch(addComic({ seriesName: 'Amazing Spider-man', seriesNumber: 10, publicationDate: 21000 }));
 store.dispatch(addComic({ seriesName: 'The Avengers', seriesNumber: 18, publicationDate: -1000 }));
-store.dispatch(setTextFilter('spider'));
+// store.dispatch(setTextFilter('spider'));
 
-setTimeout(() => {
-  store.dispatch(setTextFilter('ng'));
-}, 3000);
+// setTimeout(() => {
+//   store.dispatch(setTextFilter('ng'));
+// }, 3000);
 
 // store.dispatch(setTextFilter('aveng'));
 // store.dispatch(setStartDate(0));
