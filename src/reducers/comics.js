@@ -21,16 +21,18 @@ const comicsReducer = (state = initialState, action) => {
         }
       });
     case 'TOGGLE_READ_STATUS':
-    return state.map((comic) => {
-      if (comic.id === action.id) {
-        return {
-          ...comic,
-          readStatus: !comic.readStatus
-        };
-      } else {
-        return comic;
-      }
-    });
+      return state.map((comic) => {
+        if (comic.id === action.id) {
+          return {
+            ...comic,
+            readStatus: !comic.readStatus
+          };
+        } else {
+          return comic;
+        }
+      });
+    case 'SET_COMICS':
+      return action.comics;
     default:
       return state;
   };

@@ -6,13 +6,13 @@ import { editComic, removeComic } from '../actions/comics';
 const EditComicPage = (props) => {
   return (
     <div>
-      <h2>Edit Comic with id = {props.match.params.id}</h2>
       <ComicForm
         onSubmit={(comic) => {
           props.dispatch(editComic(props.match.params.id, comic));
           props.history.push("/");
         }} 
-        comic={props.comic} 
+        comic={props.comic}
+        buttonText="Update" 
       />
       <button onClick={() => {
           props.dispatch(removeComic(props.match.params.id));

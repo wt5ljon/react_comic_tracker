@@ -52,7 +52,7 @@ export default class ComicForm extends React.Component {
     e.preventDefault();
 
     if (!this.state.seriesName || !this.state.seriesNumber) {
-      this.setState(() => ({ errorMessage: 'Please provide a series name and number' }));
+      this.setState(() => ({ errorMessage: 'Series name and number required' }));
     } else {
       this.setState(() => ({ errorMessage: '' }));
       this.props.onSubmit({
@@ -95,7 +95,7 @@ export default class ComicForm extends React.Component {
             value={this.state.artBy}
             onChange={this.onArtByChange}
           /></p>
-          <button>Add Comicbook</button>
+          <button>{this.props.buttonText}</button>
           <SingleDatePicker 
             date={this.state.publicationDate}
             onDateChange={this.onDateChange}
