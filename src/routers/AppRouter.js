@@ -11,7 +11,7 @@ import Header from '../components/Header';
 const AppRouter = () => (
   <BrowserRouter>
     <div>
-      <Header title="Comicbook Tracking App" />
+      <Header />
       <Switch>
         <Route path="/" component={LoginPage} exact={true} />
         <Route path="/dashboard" component={ComicTrackingApp} />
