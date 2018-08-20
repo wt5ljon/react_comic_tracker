@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import LoginPage from '../components/LoginPage';
 import ComicTrackingApp from '../components/ComicTrackingApp';
 import EditComicPage from '../components/EditComicPage';
 import AddComicPage from '../components/AddComicPage';
@@ -12,7 +13,8 @@ const AppRouter = () => (
     <div>
       <Header title="Comicbook Tracking App" />
       <Switch>
-        <Route path="/" component={ComicTrackingApp} exact={true} />
+        <Route path="/" component={LoginPage} exact={true} />
+        <Route path="/dashboard" component={ComicTrackingApp} />
         <Route path="/edit/:id" component={EditComicPage} />
         <Route path="/create" component={AddComicPage} />
         <Route path="/help" component={HelpPage} />
