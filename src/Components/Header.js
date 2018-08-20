@@ -7,7 +7,7 @@ const Header = ({ startLogout }) => {
   return (
     <header>
       <h1>Comicbook Tracker</h1>
-      <NavLink to="/dashboard" activeClassName="is-active" exact={true}>Dashboard</NavLink>
+      <NavLink to="/dashboard" activeClassName="is-active">Dashboard</NavLink>
       <NavLink to="/create" activeClassName="is-active">Create Comicbook</NavLink>
       <button onClick={startLogout}>Logout</button>
     </header>

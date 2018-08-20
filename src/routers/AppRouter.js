@@ -5,9 +5,9 @@ import LoginPage from '../components/LoginPage';
 import ComicTrackingApp from '../components/ComicTrackingApp';
 import EditComicPage from '../components/EditComicPage';
 import AddComicPage from '../components/AddComicPage';
-import HelpPage from '../components/HelpPage';
 import NotFoundPage from '../components/NotFoundPage';
 import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 export const history = createHistory();
 
@@ -15,11 +15,10 @@ const AppRouter = () => (
   <Router history={history}>
     <div>
       <Switch>
-        <Route path="/" component={LoginPage} exact={true} />
+        <PublicRoute path="/" component={LoginPage} exact={true} />
         <PrivateRoute path="/dashboard" component={ComicTrackingApp} />
         <PrivateRoute path="/edit/:id" component={EditComicPage} />
         <PrivateRoute path="/create" component={AddComicPage} />
-        <Route path="/help" component={HelpPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
