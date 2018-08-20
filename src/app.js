@@ -5,18 +5,11 @@ import 'react-dates/initialize';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import configureStore from './store/configureStore';
-import AppRouter from './routers/AppRouter';
-import getVisibleComics from './selectors/getVisibleComics';
+import AppRouter, { history } from './routers/AppRouter';
 import { firebase } from './firebase/firebase';
 import { startSetComics } from './actions/comics';
 
 const store = configureStore();
-
-// store.subscribe(() => {
-//   const state = store.getState();
-//   const visibleComics = getVisibleComics(state.comics, state.filters);
-//   console.log('Visible', visibleComics);
-// });
 
 const jsx = (
   <Provider store={store}>
@@ -24,17 +17,26 @@ const jsx = (
   </Provider>
 );
 
-ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
-
-store.dispatch(startSetComics())
-  .then(() => {
+let hasRendered = false;
+const renderApp = () => {
+  if (!hasRendered) {
     ReactDOM.render(jsx, document.getElementById('app'));
-  });
+    hasRendered = true;
+  }
+};
+
+ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log('Logged In');
+    store.dispatch(startSetComics()).then(() => {
+      renderApp();
+      if (history.location.pathname === '/') {
+        history.push('/dashboard');
+      }
+    });
   } else {
-    console.log('Logged Out');
+    renderApp();
+    history.push('/');
   }
 });
