@@ -1,21 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ComicForm from '../components/ComicForm';
-import { editComic, removeComic } from '../actions/comics';
+import { startEditComic, startRemoveComic } from '../actions/comics';
 
 const EditComicPage = (props) => {
   return (
     <div>
       <ComicForm
         onSubmit={(comic) => {
-          props.dispatch(editComic(props.match.params.id, comic));
+          props.dispatch(startEditComic(props.match.params.id, comic));
           props.history.push("/");
         }} 
         comic={props.comic}
         buttonText="Update" 
       />
       <button onClick={() => {
-          props.dispatch(removeComic(props.match.params.id));
+          props.dispatch(startRemoveComic(props.match.params.id));
           props.history.push("/");
         }}>
         Remove

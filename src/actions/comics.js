@@ -33,11 +33,27 @@ export const removeComic = (id) => ({
   id
 });
 
+export const startRemoveComic = (id) => {
+  return (dispatch) => {
+    return database.ref(`comics/${id}`).remove().then(() => {
+      dispatch(removeComic(id));
+    });
+  };
+};
+
 export const editComic = (id, editedComic) => ({
   type: 'EDIT_COMIC',
   id,
   editedComic
 });
+
+export const startEditComic = (id, editedComic) => {
+  return (dispatch) => {
+    return database.ref(`comics/${id}`).set(editedComic).then(() => {
+      dispatch(editComic(id, editedComic));
+    });
+  };
+};
 
 export const toggleReadStatus = (id) => ({
   type: 'TOGGLE_READ_STATUS',
