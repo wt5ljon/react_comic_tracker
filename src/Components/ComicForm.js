@@ -32,8 +32,7 @@ export default class ComicForm extends React.Component {
 
   onSeriesNumberChange = (e) => {
     const seriesNumber = e.target.value;
-
-  if (seriesNumber.match(/^\d*$/)) {
+    if (seriesNumber.match(/^\d*$/)) {
       this.setState(() => ({ seriesNumber }));
     }
   };
@@ -53,11 +52,13 @@ export default class ComicForm extends React.Component {
 
     if (!this.state.seriesName || !this.state.seriesNumber) {
       this.setState(() => ({ errorMessage: 'Series name and number required' }));
+    } else if (parseInt(this.state.seriesNumber) === 0) {
+      this.setState(() => ({ errorMessage: 'Series number must be greater than 0' }));
     } else {
       this.setState(() => ({ errorMessage: '' }));
       this.props.onSubmit({
         seriesName: this.state.seriesName,
-        seriesNumber: this.state.seriesNumber,
+        seriesNumber: parseInt(this.state.seriesNumber),
         publicationDate: this.state.publicationDate.valueOf(),
         storyBy: this.state.storyBy,
         artBy: this.state.artBy
@@ -70,31 +71,31 @@ export default class ComicForm extends React.Component {
       <div>
         <form onSubmit={this.onSubmit}>
           {this.state.errorMessage && <p>{this.state.errorMessage}</p>}
-          <p><input 
+          <input 
             type="text" 
             placeholder="Series Name" 
             autoFocus 
             value={this.state.seriesName} 
             onChange={this.onSeriesNameChange}
-          /></p>
-          <p><input 
+          />
+          <input 
             type="text" 
             placeholder="Series Number" 
             value={this.state.seriesNumber}
             onChange={this.onSeriesNumberChange}
-          /></p>
-          <p><input 
+          />
+          <input 
             type="text" 
             placeholder="Story By"
             value={this.state.storyBy}
             onChange={this.onStoryByChange}
-          /></p>
-          <p><input 
+          />
+          <input 
             type="text" 
             placeholder="Art By"
             value={this.state.artBy}
             onChange={this.onArtByChange}
-          /></p>
+          />
           <button>{this.props.buttonText}</button>
           <SingleDatePicker 
             date={this.state.publicationDate}

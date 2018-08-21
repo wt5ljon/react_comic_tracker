@@ -1,4 +1,3 @@
-import uuid from 'uuid';
 import database from '../firebase/firebase';
 
 export const addComic = (comic) => {
@@ -16,10 +15,9 @@ export const startAddComic = (comicData = {}) => {
       seriesNumber = undefined,
       storyBy = '',
       artBy = '',
-      publicationDate = undefined,
-      readStatus = false
+      publicationDate = undefined
     } = comicData;
-  const comic = { seriesName, seriesNumber, storyBy, artBy, publicationDate, readStatus };
+  const comic = { seriesName, seriesNumber, storyBy, artBy, publicationDate };
   database.ref(`users/${uid}/comics`).push(comic).then((ref) => {
     dispatch(addComic({
       id: ref.key,
@@ -57,11 +55,6 @@ export const startEditComic = (id, editedComic) => {
     });
   };
 };
-
-export const toggleReadStatus = (id) => ({
-  type: 'TOGGLE_READ_STATUS',
-  id  
-});
 
 export const setComics = (comics) => ({
   type: 'SET_COMICS',
