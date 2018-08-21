@@ -1,4 +1,3 @@
-import uuid from 'uuid';
 import database from '../firebase/firebase';
 
 export const addComic = (comic) => {
@@ -9,17 +8,17 @@ export const addComic = (comic) => {
 };
 
 export const startAddComic = (comicData = {}) => {
-  return (dispatch) => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     const {
       seriesName = '',
       seriesNumber = undefined,
       storyBy = '',
       artBy = '',
-      publicationDate = undefined,
-      readStatus = false
+      publicationDate = undefined
     } = comicData;
-  const comic = { seriesName, seriesNumber, storyBy, artBy, publicationDate, readStatus };
-  database.ref('comics').push(comic).then((ref) => {
+  const comic = { seriesName, seriesNumber, storyBy, artBy, publicationDate };
+  database.ref(`users/${uid}/comics`).push(comic).then((ref) => {
     dispatch(addComic({
       id: ref.key,
       ...comic
@@ -34,8 +33,9 @@ export const removeComic = (id) => ({
 });
 
 export const startRemoveComic = (id) => {
-  return (dispatch) => {
-    return database.ref(`comics/${id}`).remove().then(() => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/comics/${id}`).remove().then(() => {
       dispatch(removeComic(id));
     });
   };
@@ -48,17 +48,13 @@ export const editComic = (id, editedComic) => ({
 });
 
 export const startEditComic = (id, editedComic) => {
-  return (dispatch) => {
-    return database.ref(`comics/${id}`).set(editedComic).then(() => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/comics/${id}`).set(editedComic).then(() => {
       dispatch(editComic(id, editedComic));
     });
   };
 };
-
-export const toggleReadStatus = (id) => ({
-  type: 'TOGGLE_READ_STATUS',
-  id  
-});
 
 export const setComics = (comics) => ({
   type: 'SET_COMICS',
@@ -66,8 +62,9 @@ export const setComics = (comics) => ({
 });
 
 export const startSetComics = () => {
-  return (dispatch) => {
-    return database.ref('comics')
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    return database.ref(`users/${uid}/comics`)
       .once('value')
       .then((snapshot) => {
         const comics = [];

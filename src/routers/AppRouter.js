@@ -1,25 +1,28 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Switch, Route, Router } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
+import LoginPage from '../components/LoginPage';
 import ComicTrackingApp from '../components/ComicTrackingApp';
 import EditComicPage from '../components/EditComicPage';
 import AddComicPage from '../components/AddComicPage';
-import HelpPage from '../components/HelpPage';
 import NotFoundPage from '../components/NotFoundPage';
-import Header from '../components/Header';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
+
+export const history = createHistory();
 
 const AppRouter = () => (
-  <BrowserRouter>
+  <Router history={history}>
     <div>
-      <Header title="Comicbook Tracking App" />
       <Switch>
-        <Route path="/" component={ComicTrackingApp} exact={true} />
-        <Route path="/edit/:id" component={EditComicPage} />
-        <Route path="/create" component={AddComicPage} />
-        <Route path="/help" component={HelpPage} />
+        <PublicRoute path="/" component={LoginPage} exact={true} />
+        <PrivateRoute path="/dashboard" component={ComicTrackingApp} />
+        <PrivateRoute path="/edit/:id" component={EditComicPage} />
+        <PrivateRoute path="/create" component={AddComicPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
-  </BrowserRouter>
+  </Router>
 );
 
 export default AppRouter;
