@@ -1,2 +1,6 @@
 node_modules/
 .env
+public/dist/bundle.js
+public/dist/bundle.js.map
+public/dist/styles.css
+public/dist/styles.css.map
