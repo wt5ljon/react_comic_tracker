@@ -1,19 +1,45 @@
 import React from 'react';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 
-
 export default class ComicForm extends React.Component {
-  state = {
-    seriesName: this.props.comic ? this.props.comic.seriesName : '',
-    seriesNumber: this.props.comic ? this.props.comic.seriesNumber : '',
-    storyBy: this.props.comic ? this.props.comic.storyBy : '',
-    artBy: this.props.comic ? this.props.comic.artBy : '',
-    publicationDate: this.props.comic ? moment(this.props.comic.publicationDate) : moment(),
-    calendarFocused: false,
-    errorMessage: ''
+  static propTypes = {
+    comic: PropTypes.shape({
+      seriesName: PropTypes.string,
+      seriesNumber: PropTypes.number,
+      storyBy: PropTypes.string,
+      artBy: PropTypes.string,
+      publicationDate: PropTypes.number
+    }),
+    buttonText: PropTypes.string.isRequired,
+    onSubmit: PropTypes.func.isRequired
   };
+
+  static defaultProps = {
+    comic: {
+      seriesName: '',
+      seriesNumber: 0,
+      storyBy: '',
+      artBy: '',
+      publicationDate: moment().valueOf()
+    }
+  };
+
+  constructor(props) {
+    super(props);
+    const {comic} = this.props;
+    this.state = {
+      seriesName: comic.seriesName,
+      seriesNumber: comic.seriesNumber,
+      storyBy: comic.storyBy,
+      artBy: comic.artBy,
+      publicationDate: moment(comic.publicationDate),
+      calendarFocused: false,
+      errorMessage: ''
+    };
+  }
 
   onSeriesNameChange = (e) => {
     const seriesName = e.target.value;
@@ -49,58 +75,62 @@ export default class ComicForm extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
+    const {seriesName, seriesNumber, publicationDate, storyBy, artBy} = this.state;
+    const {onSubmit} = this.props;
 
-    if (!this.state.seriesName || !this.state.seriesNumber) {
+    if (!seriesName || !seriesNumber) {
       this.setState(() => ({ errorMessage: 'Series name and number required' }));
-    } else if (parseInt(this.state.seriesNumber) === 0) {
+    } else if (parseInt(seriesNumber, 10) === 0) {
       this.setState(() => ({ errorMessage: 'Series number must be greater than 0' }));
     } else {
       this.setState(() => ({ errorMessage: '' }));
-      this.props.onSubmit({
-        seriesName: this.state.seriesName,
-        seriesNumber: parseInt(this.state.seriesNumber),
-        publicationDate: this.state.publicationDate.valueOf(),
-        storyBy: this.state.storyBy,
-        artBy: this.state.artBy
+      onSubmit({
+        seriesName,
+        seriesNumber: parseInt(seriesNumber, 10),
+        publicationDate: publicationDate.valueOf(),
+        storyBy,
+        artBy
       })
     }
   };
 
   render() {
+    const {seriesName, seriesNumber, publicationDate, storyBy, artBy, errorMessage, calendarFocused} = this.state;
+    const {buttonText} = this.props;
+    
     return (
       <div>
         <form onSubmit={this.onSubmit}>
-          {this.state.errorMessage && <p>{this.state.errorMessage}</p>}
+          {errorMessage && <p>{errorMessage}</p>}
           <input 
             type="text" 
             placeholder="Series Name" 
-            autoFocus 
-            value={this.state.seriesName} 
+            value={seriesName} 
             onChange={this.onSeriesNameChange}
           />
           <input 
             type="text" 
             placeholder="Series Number" 
-            value={this.state.seriesNumber}
+            value={seriesNumber}
             onChange={this.onSeriesNumberChange}
           />
           <input 
             type="text" 
             placeholder="Story By"
-            value={this.state.storyBy}
+            value={storyBy}
             onChange={this.onStoryByChange}
           />
           <input 
             type="text" 
             placeholder="Art By"
-            value={this.state.artBy}
+            value={artBy}
             onChange={this.onArtByChange}
           />
-          <button>{this.props.buttonText}</button>
+          <button type="submit">{buttonText}</button>
           <SingleDatePicker 
-            date={this.state.publicationDate}
+            date={publicationDate}
             onDateChange={this.onDateChange}
-            focused={this.state.calendarFocused}
+            focused={calendarFocused}
             onFocusChange={this.onFocusChange}
             numberOfMonths={1}
             isOutsideRange={() => false}

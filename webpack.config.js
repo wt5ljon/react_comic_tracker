@@ -9,6 +9,7 @@ module.exports = (env) => {
   const CSSExtract = new ExtractTextPlugin('styles.css');
   
   return {
+    mode: 'development',
     entry: './src/app.js',
     output: {
       path: path.join(__dirname, 'public', 'dist'),
@@ -52,7 +53,7 @@ module.exports = (env) => {
     devServer: {
       contentBase: path.join(__dirname, 'public'),
       historyApiFallback: true,
-      //publicPath: '/dist/',
+      publicPath: '/dist/'
     }
   }
 }

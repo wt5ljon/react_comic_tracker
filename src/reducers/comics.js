@@ -16,15 +16,14 @@ const comicsReducer = (state = initialState, action) => {
             ...comic,
             ...action.editedComic
           };
-        } else {
-          return comic;
-        }
+        } 
+        return comic;
       });
     case 'SET_COMICS':
       return action.comics;
     default:
       return state;
-  };
+  }
 };
 
 export default comicsReducer;

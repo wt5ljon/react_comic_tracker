@@ -1,35 +1,47 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ComicForm from '../components/ComicForm';
+import PropTypes from 'prop-types';
+import ReactRouterPropTypes from 'react-router-prop-types';
+import ComicForm from "./ComicForm";
 import { startEditComic, startRemoveComic } from '../actions/comics';
 
-const EditComicPage = (props) => {
-  return (
-    <div>
-      <ComicForm
-        onSubmit={(comic) => {
-          props.dispatch(startEditComic(props.match.params.id, comic));
-          props.history.push("/");
-        }} 
-        comic={props.comic}
-        buttonText="Update" 
-      />
-      <button onClick={() => {
-          props.dispatch(startRemoveComic(props.match.params.id));
-          props.history.push("/");
-        }}>
-        Remove
-      </button>
-    </div>
-  );
+const EditComicPage = ({ dispatch, history, match, comic}) => (
+  <div>
+    <ComicForm
+      onSubmit={(editedComic) => {
+        dispatch(startEditComic(match.params.id, editedComic));
+        history.push('/');
+      }}
+      comic={comic}
+      buttonText="Update"
+    />
+    <button
+      onClick={() => {
+        dispatch(startRemoveComic(match.params.id));
+        history.push('/');
+      }}
+      type="button"
+    >
+      {'Remove'}
+    </button>
+  </div>
+);
+
+EditComicPage.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
+  match: ReactRouterPropTypes.match.isRequired,
+  comic: PropTypes.shape({
+    seriesName: PropTypes.string,
+      seriesNumber: PropTypes.number,
+      storyBy: PropTypes.string,
+      artBy: PropTypes.string,
+      publicationDate: PropTypes.number
+  }).isRequired
 };
 
-const mapStateToProps = (state, props) => {
-  return {
-    comic: state.comics.find((comic) => {
-      return comic.id === props.match.params.id
-    })
-  };
-};
+const mapStateToProps = (state, props) => ({
+  comic: state.comics.find(comic => comic.id === props.match.params.id)
+});
 
 export default connect(mapStateToProps)(EditComicPage);
