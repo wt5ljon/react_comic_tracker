@@ -1,30 +1,26 @@
 import database from '../firebase/firebase';
 
-export const addComic = (comic) => {
-  return {
-    type: 'ADD_COMIC',
-    comic
-  };
-};
+export const addComic = comic => ({
+  type: 'ADD_COMIC',
+  comic
+});
 
-export const startAddComic = (comicData = {}) => {
-  return (dispatch, getState) => {
-    const uid = getState().auth.uid;
-    const {
-      seriesName = '',
-      seriesNumber = undefined,
-      storyBy = '',
-      artBy = '',
-      publicationDate = undefined
-    } = comicData;
+export const startAddComic = (comicData = {}) => (dispatch, getState) => {
+  const { auth } = getState();
+  const {
+    seriesName = '',
+    seriesNumber = undefined,
+    storyBy = '',
+    artBy = '',
+    publicationDate = undefined
+  } = comicData;
   const comic = { seriesName, seriesNumber, storyBy, artBy, publicationDate };
-  database.ref(`users/${uid}/comics`).push(comic).then((ref) => {
+  database.ref(`users/${auth.uid}/comics`).push(comic).then((ref) => {
     dispatch(addComic({
       id: ref.key,
       ...comic
     }))
   })
-  };
 };
 
 export const removeComic = (id) => ({
@@ -32,13 +28,11 @@ export const removeComic = (id) => ({
   id
 });
 
-export const startRemoveComic = (id) => {
-  return (dispatch, getState) => {
-    const uid = getState().auth.uid;
-    return database.ref(`users/${uid}/comics/${id}`).remove().then(() => {
-      dispatch(removeComic(id));
-    });
-  };
+export const startRemoveComic = (id) => (dispatch, getState) => {
+  const { auth } = getState();
+  return database.ref(`users/${auth.uid}/comics/${id}`).remove().then(() => {
+    dispatch(removeComic(id));
+  });
 };
 
 export const editComic = (id, editedComic) => ({
@@ -47,13 +41,11 @@ export const editComic = (id, editedComic) => ({
   editedComic
 });
 
-export const startEditComic = (id, editedComic) => {
-  return (dispatch, getState) => {
-    const uid = getState().auth.uid;
-    return database.ref(`users/${uid}/comics/${id}`).set(editedComic).then(() => {
-      dispatch(editComic(id, editedComic));
-    });
-  };
+export const startEditComic = (id, editedComic) => (dispatch, getState) => {
+  const { auth } = getState();
+  return database.ref(`users/${auth.uid}/comics/${id}`).set(editedComic).then(() => {
+    dispatch(editComic(id, editedComic));
+  });
 };
 
 export const setComics = (comics) => ({
@@ -61,20 +53,18 @@ export const setComics = (comics) => ({
   comics
 });
 
-export const startSetComics = () => {
-  return (dispatch, getState) => {
-    const uid = getState().auth.uid;
-    return database.ref(`users/${uid}/comics`)
-      .once('value')
-      .then((snapshot) => {
-        const comics = [];
-        snapshot.forEach((childSnapshot) => {
-          comics.push({
-            id: childSnapshot.key,
-            ...childSnapshot.val()
-          });
+export const startSetComics = () => (dispatch, getState) => {
+  const { auth } = getState();
+  return database.ref(`users/${auth.uid}/comics`)
+    .once('value')
+    .then((snapshot) => {
+      const comics = [];
+      snapshot.forEach((childSnapshot) => {
+        comics.push({
+          id: childSnapshot.key,
+          ...childSnapshot.val()
         });
-        dispatch(setComics(comics));
       });
-  };
+      dispatch(setComics(comics));
+    });
 };
