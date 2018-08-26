@@ -7,14 +7,20 @@ import ComicForm from './ComicForm';
 
 const AddComicPage = ({dispatch, history}) => (
   <div>
-    <h2>Add Comic Page</h2>
-    <ComicForm
-      onSubmit={(comic) => {
-        dispatch(startAddComic(comic));
-        history.push('/');
-      }}
-      buttonText="Create"
-    />
+    <div className="page-header">
+      <div className="content-container">
+        <h1 className="page-header__title">Add Comicbook</h1>
+      </div>    
+    </div>
+    <div className="content-container">
+      <ComicForm
+        onSubmit={(comic) => {
+          dispatch(startAddComic(comic));
+          history.push('/');
+        }}
+        buttonText="Save Comicbook"
+      />    
+    </div>
   </div>
 );
 

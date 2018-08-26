@@ -10,10 +10,25 @@ const ComicList = props => {
   } = props;
 
   return (
-    <div>
-      {comics.length === 0 && <h2>No Comicbooks to List</h2>}
-      {comics.map(comic => (<ComicListItem key={comic.id} {...comic} />))}
-    </div>)
+    <div className="content-container">
+      <div className="list-header">
+        <div className="show-for-mobile">Titles</div>
+        <div className="show-for-desktop">Title</div>
+        <div className="show-for-desktop">Number</div>
+      </div>
+      <div className="list-body">
+        {
+          comics.length === 0 ? (
+            <div className="list-item list-item--message">
+              <span>No Comicbooks</span>
+            </div>
+          ) : (
+            comics.map(comic => (<ComicListItem key={comic.id} {...comic} />))
+          )
+        }
+      </div>
+    </div>
+    )
 };
 
 ComicList.propTypes = {

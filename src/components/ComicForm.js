@@ -99,48 +99,48 @@ export default class ComicForm extends React.Component {
     const {buttonText} = this.props;
     
     return (
-      <div>
-        <form onSubmit={this.onSubmit}>
-          {errorMessage && <p>{errorMessage}</p>}
-          <input 
-            type="text" 
-            placeholder="Series Name" 
-            className="text-input"
-            value={seriesName} 
-            onChange={this.onSeriesNameChange}
-          />
-          <input 
-            type="text" 
-            placeholder="Series Number" 
-            className="text-input"
-            value={seriesNumber}
-            onChange={this.onSeriesNumberChange}
-          />
-          <input 
-            type="text" 
-            placeholder="Story By"
-            className="text-input"
-            value={storyBy}
-            onChange={this.onStoryByChange}
-          />
-          <input 
-            type="text" 
-            placeholder="Art By"
-            className="text-input"
-            value={artBy}
-            onChange={this.onArtByChange}
-          />
-          <SingleDatePicker 
-            date={publicationDate}
-            onDateChange={this.onDateChange}
-            focused={calendarFocused}
-            onFocusChange={this.onFocusChange}
-            numberOfMonths={1}
-            isOutsideRange={() => false}
-          />
-          <button type="submit">{buttonText}</button>
-        </form>
-      </div>  
+      <form className="form" onSubmit={this.onSubmit}>
+        {errorMessage && <p className="form__error">{errorMessage}</p>}
+        <input 
+          type="text" 
+          placeholder="Series Name" 
+          className="text-input"
+          value={seriesName} 
+          onChange={this.onSeriesNameChange}
+        />
+        <input 
+          type="text" 
+          placeholder="Series Number" 
+          className="text-input"
+          value={seriesNumber}
+          onChange={this.onSeriesNumberChange}
+        />
+        <input 
+          type="text" 
+          placeholder="Story By"
+          className="text-input"
+          value={storyBy}
+          onChange={this.onStoryByChange}
+        />
+        <input 
+          type="text" 
+          placeholder="Art By"
+          className="text-input"
+          value={artBy}
+          onChange={this.onArtByChange}
+        />
+        <SingleDatePicker 
+          date={publicationDate}
+          onDateChange={this.onDateChange}
+          focused={calendarFocused}
+          onFocusChange={this.onFocusChange}
+          numberOfMonths={1}
+          isOutsideRange={() => false}
+        />
+        <div>
+          <button className="button" type="submit">{buttonText}</button>        
+        </div>
+      </form>
     )
   };
 }
