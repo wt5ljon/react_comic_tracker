@@ -4,14 +4,18 @@ import PropTypes from 'prop-types';
 import { setTextFilter } from '../actions/filters';
 
 const ComicsListFilters = ({dispatch, filters}) => (
-  <div>
-    <input
-      type="text"
-      value={filters.text}
-      onChange={(e) => {
-        dispatch(setTextFilter(e.target.value));
-      }}
-    />
+  <div className="content-container">
+    <div className="input-group">
+      <input
+        className="text-input"
+        type="text"
+        value={filters.text}
+        placeholder="Search comicbooks"
+        onChange={(e) => {
+          dispatch(setTextFilter(e.target.value));
+        }}
+      />
+    </div>
   </div>
 );
 
