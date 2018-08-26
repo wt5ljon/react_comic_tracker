@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ComicListItem from './ComicListItem';
-import SelectComics from '../selectors/getVisibleComics';
+import SelectComics from '../selectors/selectComics';
 
 const ComicList = props => {
   const {
@@ -11,7 +11,6 @@ const ComicList = props => {
 
   return (
     <div>
-      <h1>Comicbook List</h1>
       {comics.length === 0 && <h2>No Comicbooks to List</h2>}
       {comics.map(comic => (<ComicListItem key={comic.id} {...comic} />))}
     </div>)

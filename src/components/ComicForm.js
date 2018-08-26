@@ -105,28 +105,31 @@ export default class ComicForm extends React.Component {
           <input 
             type="text" 
             placeholder="Series Name" 
+            className="text-input"
             value={seriesName} 
             onChange={this.onSeriesNameChange}
           />
           <input 
             type="text" 
             placeholder="Series Number" 
+            className="text-input"
             value={seriesNumber}
             onChange={this.onSeriesNumberChange}
           />
           <input 
             type="text" 
             placeholder="Story By"
+            className="text-input"
             value={storyBy}
             onChange={this.onStoryByChange}
           />
           <input 
             type="text" 
             placeholder="Art By"
+            className="text-input"
             value={artBy}
             onChange={this.onArtByChange}
           />
-          <button type="submit">{buttonText}</button>
           <SingleDatePicker 
             date={publicationDate}
             onDateChange={this.onDateChange}
@@ -135,6 +138,7 @@ export default class ComicForm extends React.Component {
             numberOfMonths={1}
             isOutsideRange={() => false}
           />
+          <button type="submit">{buttonText}</button>
         </form>
       </div>  
     )
