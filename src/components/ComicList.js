@@ -13,8 +13,8 @@ const ComicList = props => {
     <div className="content-container">
       <div className="list-header">
         <div className="show-for-mobile">Titles</div>
-        <div className="show-for-desktop">Title</div>
-        <div className="show-for-desktop">Number</div>
+        <div className="show-for-desktop">Series Title</div>
+        <div className="show-for-desktop">Series Number</div>
       </div>
       <div className="list-body">
         {

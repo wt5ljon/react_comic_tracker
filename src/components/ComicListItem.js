@@ -9,16 +9,20 @@ const ComicListItem = ({
   <Link className="list-item" to={`/edit/${id}`}>
     <div>
       <h3 className="list-item__title">{seriesName}</h3>
-      <span className="list-item__sub-title">Publication Date:</span>
-      <span className="list-item__sub-title">Story By:</span>
-      <span className="list-item__sub-title">Art By:</span>
+      <span className="list-item__sub-title">
+        {'Publication Date: '}
+        {moment(publicationDate).format('MMMM Do, YYYY')}
+      </span>
+      <span className="list-item__sub-title">
+        {'Story By: '}
+        {storyBy}
+      </span>
+      <span className="list-item__sub-title">
+        {'Art By: '}
+        {artBy}
+      </span>
     </div>
-    <div className="list-item__right">
-      <h3 className="list-item__data">{seriesNumber}</h3>
-      <span className="list-item__sub-title">{moment(publicationDate).format('MMMM Do, YYYY')}</span>
-      <span className="list-item__sub-title">{storyBy}</span>
-      <span className="list-item__sub-title">{artBy}</span>    
-    </div>
+    <h3 className="list-item__data">{seriesNumber}</h3>
   </Link>
 );
 
