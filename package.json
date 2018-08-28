@@ -8,7 +8,8 @@
     "build:prod": "webpack -p --env production",
     "dev-server": "webpack-dev-server",
     "start": "node server/server.js",
-    "heroku-postbuild": "npm run build:prod"
+    "heroku-postbuild": "npm run build:prod",
+    "test": "jest"
   },
   "author": "Jon K Olson",
   "license": "ISC",
@@ -53,6 +54,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.1",
+    "jest": "^23.5.0",
     "webpack-dev-server": "^3.1.5"
   }
 }
