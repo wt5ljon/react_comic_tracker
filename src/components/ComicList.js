@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ComicListItem from './ComicListItem';
 import SelectComics from '../selectors/selectComics';
 
-const ComicList = props => {
+export const UComicList = props => {
   const {
     comics
   } = props;
@@ -31,7 +31,7 @@ const ComicList = props => {
     )
 };
 
-ComicList.propTypes = {
+UComicList.propTypes = {
   comics: PropTypes.arrayOf(PropTypes.object).isRequired
 }
 
@@ -39,4 +39,4 @@ const mapStateToProps = state => ({
   comics: SelectComics(state.comics, state.filters)
 });
 
-export default connect(mapStateToProps)(ComicList);
+export default connect(mapStateToProps)(UComicList);

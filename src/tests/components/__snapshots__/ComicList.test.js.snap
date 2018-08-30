@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render comic list displaying empty message 1`] = `
+<div
+  className="content-container"
+>
+  <div
+    className="list-header"
+  >
+    <div
+      className="show-for-mobile"
+    >
+      Titles
+    </div>
+    <div
+      className="show-for-desktop"
+    >
+      Series Title
+    </div>
+    <div
+      className="show-for-desktop"
+    >
+      Series Number
+    </div>
+  </div>
+  <div
+    className="list-body"
+  >
+    <div
+      className="list-item list-item--message"
+    >
+      <span>
+        No Comicbooks
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`should render comic list with comicss 1`] = `
+<div
+  className="content-container"
+>
+  <div
+    className="list-header"
+  >
+    <div
+      className="show-for-mobile"
+    >
+      Titles
+    </div>
+    <div
+      className="show-for-desktop"
+    >
+      Series Title
+    </div>
+    <div
+      className="show-for-desktop"
+    >
+      Series Number
+    </div>
+  </div>
+  <div
+    className="list-body"
+  >
+    <ComicListItem
+      artBy="Ditko"
+      id="1"
+      key="1"
+      publicationDate={0}
+      seriesName="Amazing Spider-Man"
+      seriesNumber={2}
+      storyBy="Lee"
+    />
+    <ComicListItem
+      artBy="Ditko"
+      id="2"
+      key="2"
+      publicationDate={-345600000}
+      seriesName="Fantastic Four"
+      seriesNumber={13}
+      storyBy="Lee"
+    />
+    <ComicListItem
+      artBy="Ditko"
+      id="3"
+      key="3"
+      publicationDate={345600000}
+      seriesName="The Avengers"
+      seriesNumber={99}
+      storyBy="Lee"
+    />
+  </div>
+</div>
+`;

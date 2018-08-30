@@ -3,7 +3,7 @@ import ComicList from './ComicList';
 import ComicsListFilters from './ComicsListFilters';
 import ComicsSummary from './ComicsSummary';
 
-const ComicTrackingApp = () => (
+const DashboardPage = () => (
   <div>
     <ComicsSummary />
     <ComicsListFilters />
@@ -11,4 +11,4 @@ const ComicTrackingApp = () => (
   </div>
 );
 
-export default ComicTrackingApp;
+export default DashboardPage;
