@@ -1,7 +1,9 @@
+import moment from 'moment';
+
 const initialState = {
   text: '',
-  startDate: undefined,
-  endDate: undefined,
+  startDate: moment().startOf('month'),
+  endDate: moment().endOf('month'),
   sortBy: 'date'
 };
 
