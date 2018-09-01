@@ -2,7 +2,6 @@ import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { SingleDatePicker } from 'react-dates';
-import 'react-dates/lib/css/_datepicker.css';
 
 export default class ComicForm extends React.Component {
   static propTypes = {
@@ -13,8 +12,8 @@ export default class ComicForm extends React.Component {
       artBy: PropTypes.string,
       publicationDate: PropTypes.number
     }),
-    buttonText: PropTypes.string.isRequired,
-    onSubmit: PropTypes.func.isRequired
+    buttonText: PropTypes.string,
+    onSubmit: PropTypes.func
   };
 
   static defaultProps = {
@@ -24,7 +23,9 @@ export default class ComicForm extends React.Component {
       storyBy: '',
       artBy: '',
       publicationDate: moment().valueOf()
-    }
+    },
+    buttonText: 'Save Comic',
+    onSubmit: () => {} 
   };
 
   constructor(props) {
